@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        form {
+            position: -webkit-sticky; /* Safari */
+            position: sticky;background: purple; padding: 3px; bottom: 0; width: 100%; 
+        }
+        form input { border: 0; padding: 10px; width: 90%; margin-right: 0.5%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+        
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+        div {direction: rtl; margin-bottom: 20px; color: white; margin-right: 20px}
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form action="" id="reg">
+        <div>
+            <p>enter your name</p>
+        </div>
+        <input id="n" autocomplete="off" /><button>Register</button>
+    </form>
+
+    <form action="" id="chat">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+    $('#chat').hide()
+    $('#n').focus()
+    $(function () {
+        var socket = io();
+        $('#reg').submit(function(e) {
+            e.preventDefault(); // prevents page reloading
+            socket.emit('register', $('#n').val());
+            $('#reg').hide();
+            $('#chat').show()
+            $('#m').focus()
+            return false;
+        });
+        $('#chat').submit(function(e) {
+            e.preventDefault(); // prevents page reloading
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            $("html, body").animate({ scrollTop: $(document).height()-$(window).height()+50 });
+            return false;
+        });
+        socket.on('chat message', function(msg){
+            arr = msg.split(':')
+            color = arr[0]
+            name = arr[1]
+            txt = arr[2]
+            str = `<li><p style="color: ${color}">${name}: <p>${txt}</p>`
+            $('#messages').append(str);
+        });
+        socket.on('get messages', function(msgs){
+            msgs.forEach(function(msg) {
+                arr = msg.split(':')
+                color = arr[0]
+                name = arr[1]
+                txt = arr[2]
+                str = `<li><p style="color: ${color}">${name}: <p>${txt}</p>`
+                $('#messages').append(str);
+            });
+        });
+    });
+    </script>
+  </body>
+</html>
