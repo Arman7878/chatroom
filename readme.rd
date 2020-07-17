@@ -2,9 +2,9 @@
 
 1. install node.js on your computer.
 2. install npm package for node.js that you just installed
-3. extract the 'chatroom.zip' in an empty folder.
-4. run cmd 'npm install' command in that directory.
-5. run cmd 'npm index.js' command in that direcotry.
+3. extract the zip file and go to 'chatroom-master' directory
+4. run cmd 'npm install' command in 'chatroom-master' directory.
+5. run cmd 'npm index.js' command in 'chatroom-master' direcotry.
 6. open 'http://localhost:3000' in a browser.
 7. type your name and press 'enter'.
 8. type your message and press 'enter'.
@@ -12,3 +12,4 @@
 10. now in the first user tab, you can see the messages from the new user.
 11. you can register any number of users that you want and have a chatroom.
 11. THE END!
+
