@@ -2,7 +2,7 @@
 
 1. install node.js on your computer.
 2. install npm package for node.js that you just installed
-3. extract the 'chatroom.zip' in an empty folder.
+3. extract the zip folder in an empty folder.
 4. run cmd 'npm install' command in that directory.
 5. run cmd 'npm index.js' command in that direcotry.
 6. open 'http://localhost:3000' in a browser.
