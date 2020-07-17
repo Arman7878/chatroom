@@ -54,20 +54,12 @@
             return false;
         });
         socket.on('chat message', function(msg){
-            arr = msg.split(':')
-            color = arr[0]
-            name = arr[1]
-            txt = arr[2]
-            str = `<li><p style="color: ${color}">${name}: <p>${txt}</p>`
+            str = `<li><p style="color: ${msg['color']}">${msg['username']}: <p>${msg['txt']}</p>`
             $('#messages').append(str);
         });
         socket.on('get messages', function(msgs){
             msgs.forEach(function(msg) {
-                arr = msg.split(':')
-                color = arr[0]
-                name = arr[1]
-                txt = arr[2]
-                str = `<li><p style="color: ${color}">${name}: <p>${txt}</p>`
+                str = `<li><p style="color: ${msg['color']}">${msg['username']}: <p>${msg['txt']}</p>`
                 $('#messages').append(str);
             });
         });
